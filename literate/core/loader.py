@@ -4,7 +4,7 @@ import __builtin__
 import os
 from tempfile import NamedTemporaryFile
 import py_compile
-import parser
+from literate.core.parser import untangle
 from contextlib import contextmanager
 
 builtin_import = __builtin__.__import__
@@ -36,7 +36,7 @@ def importer(name, globals=globals(), locals=locals(), fromlist=[], level=-1):
         if location:
             name, path = location
             source = open(path).read()
-            code = parser.python(source)
+            code = untangle(source)['python']
             dest = name + '.py'
             cache_dest = name + '.pyc'
 
